@@ -1,7 +1,12 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,14 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.models.Pets;
 import com.example.demo.repositories.PetsRepository;
 
-import javax.validation.Valid;
-import java.util.List;
-
 @RestController
 @RequestMapping("/pets")
 public class PetsController {
 	@Autowired
 	private PetsRepository repository;
+
+	@Autowired
+	MongoTemplate mongoTemplate;
+
+	public PetsController() {
+	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<Pets> getAllPets() {
